@@ -175,7 +175,7 @@ const MOTIVATION_REVIEWS = [
 ];
 const FREE_RESOURCES = {
   classic: { label: "클래식 원서 강독 체험", title: "좋은 문장을 오래 곁에 두고 싶은 분에게", image: "./assets/free-classic-sample.webp", bullets: ["클래식 원서 PDF 체험판", "워크북 샘플", "클래식 영어 뉴스레터", "필사 루틴 안내"], cta: "클래식 원서 강독 체험하기", href: "https://class.literstella.co.kr/classes" },
-  harrypotter: { label: "해리포터 원서 강독 체험", title: "이미 아는 이야기로 원서 흐름을 잡고 싶은 분에게", image: "./assets/free-harrypotter-sample.webp", bullets: ["Harry Potter and the Philosopher’s Stone 무료 강독", "무료 단어장", "해리포터 뉴스레터", "2권 완독 클럽 안내"], cta: "해리포터 원서 강독 체험하기", href: "https://class.literstella.co.kr/p/new-9" },
+  harrypotter: { label: "해리포터 원서 강독 체험", title: "이미 아는 이야기로 원서 흐름을 잡고 싶은 분에게", image: "./assets/free-harrypotter-sample.webp", bullets: ["해리포터 1권 마법사의 돌 무료 원서 강독", "무료 단어장", "해리포터 뉴스레터", "2권 완독 클럽 안내"], cta: "해리포터 원서 강독 체험하기", href: "https://class.literstella.co.kr/p/new-9" },
 };
 
 
@@ -187,28 +187,28 @@ const PRODUCT_TOOLKITS = {
     { role: "함께 완독", tool: "해리포터 2권 완독 클럽", copy: "1권 이후 본격적으로 함께 읽으며 완독 가능성을 높입니다." },
     { role: "이벤트 활용", tool: "무료 워크북 증정 이벤트", copy: "2권 완독 클럽 신청 시 워크북을 함께 활용합니다." },
   ]},
-  classic_A: { title: "나의 클래식 정밀 독해 도구", subtitle: "정확히 이해할 때 오래 가는 타입입니다. 강독과 워크북으로 기준선을 잡고, PDF와 필사노트로 문장을 내 것으로 남깁니다.", routeLabel: "클래식 분석 루트", steps: [
+  classic_A: { title: "나의 클래식 정밀 독해 방법", subtitle: "정확히 이해할 때 오래 가는 타입입니다. 강독과 워크북으로 기준선을 잡고, PDF와 필사노트로 문장을 내 것으로 남깁니다.", routeLabel: "클래식 분석 루트", steps: [
     { role: "표시하며 읽기", tool: "클래식 원서 PDF", copy: "태블릿이나 PC에서 문장과 표현을 표시하며 읽습니다." },
     { role: "막힘 해결", tool: "스토리텔링 원서 강독", copy: "혼자 붙잡기 어려운 문장 구조와 배경을 이야기처럼 풉니다." },
     { role: "구조화", tool: "디자이너 에디션 워크북", copy: "읽은 내용을 어휘, 문장, 표현 단위로 정리합니다." },
     { role: "체화", tool: "클래식 필사노트", copy: "핵심 문장을 손으로 옮기며 오래 기억에 남깁니다." },
     { role: "완독 고정", tool: "야나완 챌린지", copy: "혼자 멈추기 쉬운 구간을 30~100일 루틴으로 고정합니다." },
   ]},
-  classic_E: { title: "나의 클래식 감정 독서 도구", subtitle: "마음에 남는 문장이 생길 때 다시 책을 펼치는 타입입니다. 종이책의 물성과 필사 루틴을 중심으로 시작하는 것이 좋습니다.", routeLabel: "클래식 감정 루트", steps: [
+  classic_E: { title: "나의 클래식 감정 독서 방법", subtitle: "마음에 남는 문장이 생길 때 다시 책을 펼치는 타입입니다. 종이책의 물성과 필사 루틴을 중심으로 시작하는 것이 좋습니다.", routeLabel: "클래식 감정 루트", steps: [
     { role: "읽기 시작", tool: "클래식 원서 종이책 또는 PDF", copy: "종이의 질감 또는 같은 디자인의 PDF로 부담 없이 첫 장을 펼칩니다." },
     { role: "문장 남기기", tool: "클래식 필사노트", copy: "마음에 남는 한 문장만 골라 손으로 옮깁니다." },
     { role: "막힘 해소", tool: "스토리텔링 원서 강독", copy: "감정선이 끊기는 문장은 강독으로 흐름을 회복합니다." },
     { role: "가볍게 정리", tool: "디자이너 에디션 워크북", copy: "읽은 장면과 표현을 정리해 다음 독서로 이어갑니다." },
     { role: "매일 유지", tool: "클래식 원서 뉴스레터", copy: "매일 한 문장으로 원서 감각을 이어갑니다." },
   ]},
-  classic_S: { title: "나의 클래식 스토리 독서 도구", subtitle: "줄거리가 이어질 때 오래 읽는 타입입니다. 원서와 오디오북 MP3로 흐름을 잡고, 강독과 뉴스레터로 중간 이탈을 줄입니다.", routeLabel: "클래식 스토리 루트", steps: [
+  classic_S: { title: "나의 클래식 스토리 독서 방법", subtitle: "줄거리가 이어질 때 오래 읽는 타입입니다. 원서와 오디오북 MP3로 흐름을 잡고, 강독과 뉴스레터로 중간 이탈을 줄입니다.", routeLabel: "클래식 스토리 루트", steps: [
     { role: "흐름 잡기", tool: "클래식 원서 종이책/PDF + 원어민 오디오북 MP3", copy: "눈과 귀로 함께 읽으며 장면의 흐름을 먼저 붙잡습니다." },
     { role: "장면 이해", tool: "스토리텔링 원서 강독", copy: "줄거리가 끊기는 구간을 이야기처럼 연결합니다." },
     { role: "핵심 정리", tool: "디자이너 에디션 워크북", copy: "모든 문장을 분석하지 않고 핵심 장면과 표현만 남깁니다." },
     { role: "감정 저장", tool: "클래식 필사노트", copy: "마음에 남는 문장을 한 줄씩 저장합니다." },
     { role: "완독 습관", tool: "야나완 챌린지", copy: "완독까지 일정한 리듬을 만듭니다." },
   ]},
-  classic_X: { title: "나의 클래식 의미 탐구 도구", subtitle: "배경과 상징을 알수록 깊게 빠지는 타입입니다. 강독과 워크북으로 해석의 길잡이를 만들고, 자유 독서로 확장합니다.", routeLabel: "클래식 탐구 루트", steps: [
+  classic_X: { title: "나의 클래식 의미 탐구 방법", subtitle: "배경과 상징을 알수록 깊게 빠지는 타입입니다. 강독과 워크북으로 해석의 길잡이를 만들고, 자유 독서로 확장합니다.", routeLabel: "클래식 탐구 루트", steps: [
     { role: "질문 잡기", tool: "추천 원서 종이책 또는 PDF", copy: "작품이 던지는 질문 하나를 정하고 읽기 시작합니다." },
     { role: "맥락 이해", tool: "스토리텔링 원서 강독", copy: "시대 배경, 상징, 인물 관계를 함께 이해합니다." },
     { role: "생각 정리", tool: "디자이너 에디션 워크북", copy: "읽은 내용을 질문과 해석 중심으로 정리합니다." },
@@ -358,7 +358,7 @@ function getProductToolkit(result = {}) {
 function productToolkitHtml(toolkit, result = {}) {
   if (!toolkit) return "";
   const mediumNote = result.mediumLabel ? `<p class="toolkit-medium-note"><strong>선호 시작 방식</strong> ${result.mediumLabel} · ${MEDIUM_EXPLANATIONS[result.mediumPreference] || ""}</p>` : "";
-  return `<section class="product-toolkit-card"><div class="toolkit-head"><span class="micro-label">🪄 나의 원서 읽기 성공 도구</span><strong>${toolkit.routeLabel}</strong></div><h3>${toolkit.title}</h3><p>${toolkit.subtitle}</p>${mediumNote}<div class="toolkit-steps">${toolkit.steps.map((step, idx) => `<article class="toolkit-step"><div class="toolkit-step-top"><span class="toolkit-step-icon" aria-hidden="true">${TOOLKIT_STEP_ICONS[idx] || "✨"}</span><span class="toolkit-step-number">${String(idx + 1).padStart(2, "0")}</span></div><div><small>${step.role}</small><strong>${step.tool}</strong><p>${step.copy}</p></div></article>`).join("")}</div></section>`;
+  return `<section class="product-toolkit-card"><div class="toolkit-head"><span class="micro-label">🪄 나의 원서 읽기 성공 방법</span><strong>${toolkit.routeLabel}</strong></div><h3>${toolkit.title}</h3><p>${toolkit.subtitle}</p>${mediumNote}<div class="toolkit-steps">${toolkit.steps.map((step, idx) => `<article class="toolkit-step"><div class="toolkit-step-top"><span class="toolkit-step-icon" aria-hidden="true">${TOOLKIT_STEP_ICONS[idx] || "✨"}</span><span class="toolkit-step-number">${String(idx + 1).padStart(2, "0")}</span></div><div><small>${step.role}</small><strong>${step.tool}</strong><p>${step.copy}</p></div></article>`).join("")}</div></section>`;
 }
 function experienceCtaBarHtml() {
   return `<div class="experience-cta-bar"><span class="micro-label">체험 링크</span><div class="experience-cta-actions"><a class="btn btn-primary" href="${FREE_RESOURCES.classic.href}" target="_blank" rel="noopener">클래식 원서 강독 체험하기</a><a class="btn btn-ghost" href="${FREE_RESOURCES.harrypotter.href}" target="_blank" rel="noopener">해리포터 원서 강독 체험하기</a></div></div>`;
@@ -582,7 +582,7 @@ function getReportToolkitBadge(toolkit, idx) {
 
 function reportToolkitHtml(toolkit) {
   if (!toolkit) return "";
-  return `<section class="report-panel report-toolkit-panel"><div class="report-toolkit-head"><h2>🪄 나의 원서 읽기 성공 도구</h2><span class="report-toolkit-route">${toolkit.routeLabel}</span></div><p>${shortText(toolkit.subtitle, 72)}</p><div class="report-toolkit-grid report-toolkit-grid--feature">${toolkit.steps.map((step, idx) => { const badge = getReportToolkitBadge(toolkit, idx); return `<article class="report-toolkit-card"><div class="report-toolkit-card-top"><span class="report-toolkit-emoji" aria-hidden="true">${badge.emoji}</span><span class="report-toolkit-stepno">${String(idx + 1).padStart(2, "0")}</span></div><small>${badge.role}</small><strong>${step.tool}</strong><p>${shortText(step.copy, 30)}</p></article>`; }).join("")}</div></section>`;
+  return `<section class="report-panel report-toolkit-panel"><div class="report-toolkit-head"><h2>🪄 나의 원서 읽기 성공 방법</h2><span class="report-toolkit-route">${toolkit.routeLabel}</span></div><p>${shortText(toolkit.subtitle, 72)}</p><div class="report-toolkit-grid report-toolkit-grid--feature">${toolkit.steps.map((step, idx) => { const badge = getReportToolkitBadge(toolkit, idx); return `<article class="report-toolkit-card"><div class="report-toolkit-card-top"><span class="report-toolkit-emoji" aria-hidden="true">${badge.emoji}</span><span class="report-toolkit-stepno">${String(idx + 1).padStart(2, "0")}</span></div><small>${badge.role}</small><strong>${step.tool}</strong><p>${shortText(step.copy, 30)}</p></article>`; }).join("")}</div></section>`;
 }
 
 function reportBookHtml(book) {
