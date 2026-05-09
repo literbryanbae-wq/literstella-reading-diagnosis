@@ -1,0 +1,44 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="960" height="720" rx="36" fill="#F7F0E6"/>
+  <circle cx="770" cy="120" r="170" fill="#F1DFCB" opacity="0.65"/>
+  <circle cx="160" cy="610" r="130" fill="#EFE6D8" opacity="0.8"/>
+  <path d="M132 536C320 484 526 487 830 544" stroke="#D8CBB8" stroke-width="3" stroke-dasharray="8 12"/>
+  <g filter="url(#shadow)">
+    <rect x="250" y="172" width="172" height="284" rx="8" fill="#FAFAF7"/>
+    <rect x="250" y="172" width="22" height="284" rx="8" fill="#ECE3D3"/>
+    <text x="336" y="254" text-anchor="middle" font-family="Georgia, serif" font-size="25" fill="#2A2010">Daddy</text>
+    <text x="336" y="286" text-anchor="middle" font-family="Georgia, serif" font-size="25" fill="#2A2010">Long Legs</text>
+    <text x="336" y="332" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="2" fill="#9B8C79">L1 BEGINNER</text>
+    <path d="M305 379C334 353 350 404 380 374" stroke="#D7A34D" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="386" y="136" width="178" height="320" rx="8" fill="#DCEB64"/>
+    <rect x="386" y="136" width="22" height="320" rx="8" fill="#CFDE58"/>
+    <text x="475" y="242" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#2A2010">Anne of</text>
+    <text x="475" y="276" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#2A2010">Green Gables</text>
+    <text x="475" y="324" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="2" fill="#546021">L2 THINKING</text>
+    <path d="M430 371C468 345 486 402 526 366" stroke="#FC5E28" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="532" y="164" width="178" height="292" rx="8" fill="#71C2BC"/>
+    <rect x="532" y="164" width="22" height="292" rx="8" fill="#5AAFA9"/>
+    <text x="621" y="254" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#FAFAF7">Pride and</text>
+    <text x="621" y="288" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#FAFAF7">Prejudice</text>
+    <text x="621" y="336" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="2" fill="#E9FFFC">L4 CLASSIC</text>
+    <path d="M580 382C610 354 630 406 666 374" stroke="#FAFAF7" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="652" y="198" width="162" height="258" rx="8" fill="#EFA09B"/>
+    <rect x="652" y="198" width="20" height="258" rx="8" fill="#DD8F8A"/>
+    <text x="733" y="286" text-anchor="middle" font-family="Georgia, serif" font-size="25" fill="#FAFAF7">Little</text>
+    <text x="733" y="318" text-anchor="middle" font-family="Georgia, serif" font-size="25" fill="#FAFAF7">Women</text>
+    <text x="733" y="364" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" letter-spacing="2" fill="#FFF4F2">L3 FLUENCY</text>
+  </g>
+  <rect x="192" y="500" width="548" height="22" rx="11" fill="#C6AD8F" opacity="0.35"/>
+  <text x="480" y="610" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="31" fill="#3B141A">Time for original classics</text>
+  <defs>
+    <filter id="shadow" x="210" y="96" width="660" height="440" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#3B141A" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+</svg>
