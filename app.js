@@ -5,16 +5,15 @@ const STORAGE_KEYS = {
 };
 
 const GOALS = [
-  { id: "restart", emoji: "🌱", title: "영어를 다시 제대로 시작하고 싶어요", desc: "오래 놓았던 영어를 부담 없이 다시 일상으로 들이고 싶어요." },
-  { id: "self_reading", emoji: "📖", title: "혼자 원서를 끝까지 읽어보고 싶어요", desc: "늘 시작만 했던 원서를 이번에는 끝까지 읽고 싶어요." },
-  { id: "speaking", emoji: "🗣️", title: "세련된 영어 표현을 내 말로 쓰고 싶어요", desc: "읽은 문장이 오래 남아 자연스러운 말하기로 이어졌으면 해요." },
-  { id: "family", emoji: "👩‍👧", title: "아이에게도 좋은 영어 독서 경험을 권하고 싶어요", desc: "내가 먼저 읽고, 자녀에게도 자연스럽게 추천하고 싶어요." },
-  { id: "long_memory", emoji: "✨", title: "시험보다 오래 남는 영어를 원해요", desc: "점수보다 오래 기억되고 삶에 남는 영어를 만들고 싶어요." },
+  { id: "exam", emoji: "🎓", title: "시험·수능", desc: "점수 이후에도 남는 읽기 힘이 필요해요." },
+  { id: "career", emoji: "💼", title: "커리어·유학", desc: "영어 문서를 오래 읽는 힘을 만들고 싶어요." },
+  { id: "conversation", emoji: "✈️", title: "회화·여행", desc: "문장과 표현을 자연스럽게 쌓고 싶어요." },
+  { id: "lifestyle", emoji: "☕", title: "취미·교양", desc: "공부가 아니라 오래 가는 취향으로 읽고 싶어요." },
 ];
 
 const STAMINA_QUESTIONS = [
-  { id: "ST01", title: "원서를 펼쳤을 때 가장 먼저 신경 쓰이는 것은?", options: [
-    { id: "A", label: "처음부터 모르는 단어가 많으면 흐름이 끊길 것 같아요", score: 0, type: "A" },
+  { id: "ST01", title: "원서를 펼쳤을 때 가장 먼저 부담스러운 것은?", options: [
+    { id: "A", label: "첫 장부터 모르는 단어가 많을까 봐", score: 0, type: "A" },
     { id: "B", label: "내용은 궁금하지만 오래 못 읽을까 봐", score: 0.5, type: "S" },
     { id: "C", label: "좋은 문장은 느리게라도 읽고 싶어요", score: 1, type: "E" },
   ]},
@@ -23,10 +22,10 @@ const STAMINA_QUESTIONS = [
     { id: "B", label: "표시만 하고 일단 흐름을 따라가요", score: 1, type: "S" },
     { id: "C", label: "장면의 감정이 이해되면 잠시 넘어가요", score: 0.5, type: "E" },
   ]},
-  { id: "ST03", title: "원서 읽기가 오래 이어지지 않았던 이유는 무엇에 가까운가요?", options: [
+  { id: "ST03", title: "완독을 어렵게 만드는 가장 큰 이유는?", options: [
     { id: "A", label: "문장 구조가 막히면 다시 앞장으로 돌아가요", score: 0, type: "A" },
     { id: "B", label: "혼자 읽다 보면 재미가 이어지지 않아요", score: 0.5, type: "S" },
-    { id: "C", label: "내 수준에 맞는 책을 못 찾았던 것 같아요", score: 1, type: "X" },
+    { id: "C", label: "나에게 맞는 책을 찾으면 계속할 수 있을 것 같아요", score: 1, type: "X" },
   ]},
 ];
 
@@ -45,19 +44,6 @@ const PREFERENCE_QUESTIONS = [
   { id: "P03", title: "완독을 계속하게 만드는 힘은?", options: [ { id: "S", label: "다음 이야기가 궁금한 몰입감", type: "S" }, { id: "A", label: "실력이 쌓이고 있다는 정확한 감각", type: "A" }, { id: "E", label: "나에게 남는 문장과 위로", type: "E" }, { id: "X", label: "작품이 던지는 질문과 해석", type: "X" } ]},
   { id: "P04", title: "읽은 뒤 가장 하고 싶은 활동은?", options: [ { id: "S", label: "챕터별 줄거리와 다음 장면 정리", type: "S" }, { id: "A", label: "핵심 문장 구조와 표현 복습", type: "A" }, { id: "E", label: "좋은 문장을 필사하고 간직하기", type: "E" }, { id: "X", label: "작품 배경과 상징을 더 알아보기", type: "X" } ]},
   { id: "P05", title: "지금 더 끌리는 시작점은?", options: [ { id: "S", label: "익숙한 이야기로 원서 완독에 도전", type: "S" }, { id: "A", label: "정확한 해석과 문장 훈련", type: "A" }, { id: "E", label: "문학적인 감정과 취향의 루틴", type: "E" }, { id: "X", label: "영어로 사고를 확장하는 독서", type: "X" } ]},
-  { id: "P06", title: "원서를 읽는다면 어떤 방식이 더 편한가요?", options: [
-    { id: "paper", label: "종이책으로 밑줄 긋고 넘기며 읽기", medium: "paper", type: "E", typeWeight: 0.35 },
-    { id: "pdf", label: "PDF/태블릿으로 표시하며 읽기", medium: "pdf", type: "A", typeWeight: 0.35 },
-    { id: "audio_lecture", label: "오디오나 강의와 함께 흐름 잡기", medium: "audio_lecture", type: "S", typeWeight: 0.35 },
-    { id: "undecided", label: "아직 잘 모르겠어요", medium: "undecided", typeWeight: 0 }
-  ]},
-  { id: "P07", title: "최근 영어 수준을 굳이 고르자면 어디에 가까운가요?", options: [
-    { id: "middle_stop", label: "중학교 영어 이후 거의 멈춘 느낌", exam: "중학교 영어 이후 거의 멈춘 느낌" },
-    { id: "toeic_600", label: "수능 3~4등급 / 토익 600~700점대", exam: "수능 3~4등급 / 토익 600~700점대" },
-    { id: "short_ok", label: "짧은 영어 글은 읽지만 긴 글은 부담스러움", exam: "짧은 영어 글은 읽지만 긴 글은 부담스러움" },
-    { id: "contents", label: "영어 콘텐츠를 가끔 읽거나 듣는 편", exam: "영어 콘텐츠를 가끔 읽거나 듣는 편" },
-    { id: "unknown", label: "잘 모르겠어요", exam: "미정" }
-  ]},
 ];
 
 const BOOKS = {
@@ -65,22 +51,22 @@ const BOOKS = {
   B002: { title: "Charlotte’s Web", ko: "샬롯의 거미줄", level: "L1 입문", ar: "4.4", lexile: "680L", types: ["S", "E"], tags: ["우정", "서사", "따뜻함"], image: "./assets/book-charlottes-web.webp", desc: "아름다운 문체와 우정의 서사가 분명해 처음 원서 읽기의 리듬을 만들기 좋습니다." },
   B003: { title: "The Little Prince", ko: "어린 왕자", level: "L1 입문", ar: "5.0", lexile: "710L", types: ["E", "X"], tags: ["짧은 문장", "상징", "감성"], image: "./assets/book-the-little-prince.webp", desc: "문장은 길지 않지만 오래 생각하게 만드는 상징이 많아, 감정과 의미를 함께 읽고 싶은 독자에게 맞습니다." },
   B004: { title: "Diary of a Wimpy Kid", ko: "윔피 키드", level: "L1 입문", ar: "5.2", lexile: "950L", types: ["S"], tags: ["일상", "유머", "가벼운 시작"], image: "./assets/book-diary-of-a-wimpy-kid.webp", desc: "그림과 일상적 유머가 함께 있어 영어 페이지를 넘기는 부담을 낮춰줍니다." },
-  B005: { title: "Anne of Green Gables", ko: "빨강머리 앤", level: "L2 문장 감각", ar: "7.3", lexile: "990L", types: ["S", "E", "A"], tags: ["감정 표현", "성장", "재시작"], image: "./assets/book-anne-of-green-gables.webp", desc: "앤의 말과 장면을 따라가며 감정 표현과 문장 구조를 함께 익힐 수 있습니다. 다시 시작하고 싶은 독자에게 가장 넓게 맞는 첫 클래식입니다." },
-  B006: { title: "Peter Pan", ko: "피터 팬", level: "L2 문장 감각", ar: "7.0", lexile: "920L", types: ["S", "X"], tags: ["모험", "상상", "스토리"], image: "./assets/book-peter-pan.webp", desc: "모험과 상상력이 선명해 이야기의 흐름을 잡으며 읽기 좋습니다." },
-  B007: { title: "The Wind in the Willows", ko: "버드나무에 부는 바람", level: "L2 문장 감각", ar: "8.2", lexile: "1140L", types: ["E", "X"], tags: ["묘사", "우정", "고전"], image: "./assets/book-the-wind-in-the-willows.webp", desc: "느린 호흡의 묘사와 관계 중심의 장면을 읽으며 문장 감각을 넓힙니다." },
-  B008: { title: "Wonder", ko: "원더", level: "L2 문장 감각", ar: "4.8", lexile: "790L", types: ["S", "E"], tags: ["현대", "공감", "짧은 챕터"], image: "./assets/book-wonder.webp", desc: "짧은 챕터와 현대적인 표현 덕분에 공감하며 지속하기 좋습니다." },
+  B005: { title: "Anne of Green Gables", ko: "빨강머리 앤", level: "L2 문장 이해", ar: "7.3", lexile: "990L", types: ["S", "E", "A"], tags: ["감정 표현", "성장", "재시작"], image: "./assets/book-anne-of-green-gables.webp", desc: "앤의 말과 장면을 따라가며 감정 표현과 문장 구조를 함께 익힐 수 있습니다. 다시 시작하고 싶은 독자에게 가장 넓게 맞는 첫 클래식입니다." },
+  B006: { title: "Peter Pan", ko: "피터 팬", level: "L2 문장 이해", ar: "7.0", lexile: "920L", types: ["S", "X"], tags: ["모험", "상상", "스토리"], image: "./assets/book-peter-pan.webp", desc: "모험과 상상력이 선명해 이야기의 흐름을 잡으며 읽기 좋습니다." },
+  B007: { title: "The Wind in the Willows", ko: "버드나무에 부는 바람", level: "L2 문장 이해", ar: "8.2", lexile: "1140L", types: ["E", "X"], tags: ["묘사", "우정", "고전"], image: "./assets/book-the-wind-in-the-willows.webp", desc: "느린 호흡의 묘사와 관계 중심의 장면을 읽으며 문장 감각을 넓힙니다." },
+  B008: { title: "Wonder", ko: "원더", level: "L2 문장 이해", ar: "4.8", lexile: "790L", types: ["S", "E"], tags: ["현대", "공감", "짧은 챕터"], image: "./assets/book-wonder.webp", desc: "짧은 챕터와 현대적인 표현 덕분에 공감하며 지속하기 좋습니다." },
   B009: { title: "Little Women", ko: "작은 아씨들", level: "L3 자연 독해", ar: "7.6", lexile: "1100L", types: ["E", "A", "S"], tags: ["일상 대화", "가족", "문학"], image: "./assets/book-little-women.webp", desc: "자매들의 대화와 일상 장면을 통해 자연스러운 영어와 문학적 감정을 함께 쌓습니다." },
   B010: { title: "The Giver", ko: "기억 전달자", level: "L3 자연 독해", ar: "5.7", lexile: "760L", types: ["X", "S"], tags: ["사유", "디스토피아", "명료한 문장"], image: "./assets/book-the-giver.webp", desc: "문장은 비교적 명료하지만 질문이 깊습니다. 영어로 생각을 확장하고 싶은 독자에게 좋습니다." },
   B011: { title: "Animal Farm", ko: "동물농장", level: "L3 자연 독해", ar: "7.3", lexile: "1170L", types: ["X", "A"], tags: ["우화", "사회", "풍자"], image: "./assets/book-animal-farm.webp", desc: "짧은 분량 안에 사회적 의미가 응축되어 있어, 읽기에서 사유로 넘어가기 좋은 책입니다." },
   B012: { title: "Flipped", ko: "플립", level: "L3 자연 독해", ar: "4.8", lexile: "720L", types: ["S", "E"], tags: ["교차 시점", "성장", "관계"], image: "./assets/book-flipped.webp", desc: "두 인물의 시점이 교차해 관계와 감정 변화를 따라가는 힘을 기릅니다." },
-  B013: { title: "Pride and Prejudice", ko: "오만과 편견", level: "L4 고전 정밀독해형", ar: "12.0", lexile: "1190L", types: ["A", "E", "X"], tags: ["관계", "논리", "고급 구조"], image: "./assets/book-pride-and-prejudice.webp", desc: "고급 문장 구조와 미묘한 관계 표현을 함께 읽는 책입니다. 정확하게 읽고 싶은 독자에게 큰 성취감을 줍니다." },
-  B014: { title: "To Kill a Mockingbird", ko: "앵무새 죽이기", level: "L4 고전 정밀독해형", ar: "5.6", lexile: "790L", types: ["X", "E"], tags: ["사회", "성장", "윤리"], image: "./assets/book-to-kill-a-mockingbird.webp", desc: "언어 난이도만이 아니라 사회적 맥락과 윤리적 질문을 함께 읽어야 하는 작품입니다." },
-  B015: { title: "1984", ko: "1984", level: "L4 고전 정밀독해형", ar: "8.9", lexile: "1090L", types: ["X", "A"], tags: ["사회비판", "추상", "사고"], image: "./assets/book-1984.webp", desc: "문장 너머의 권력, 언어, 사회 체계를 읽는 단계에 적합합니다." },
-  B016: { title: "Of Mice and Men", ko: "생쥐와 인간", level: "L4 고전 정밀독해형", ar: "4.5", lexile: "630L", types: ["E", "A"], tags: ["짧은 분량", "대화", "비극"], image: "./assets/book-of-mice-and-men.webp", desc: "짧지만 감정 밀도가 높아 인물의 대화와 침묵을 깊게 읽게 합니다." },
-  B017: { title: "Sherlock Holmes", ko: "셜록 홈즈", level: "L5 자유 독서 확장형", ar: "7.3", lexile: "1070L", types: ["X", "A"], tags: ["추론", "논리", "탐구"], image: "./assets/book-sherlock-holmes.webp", desc: "문장 속 단서를 따라가며 논리적으로 읽는 힘을 기릅니다. L4까지 지나온 독자라면 혼자 읽는 영어 독서의 자유를 넓혀볼 수 있습니다." },
-  B018: { title: "The Great Gatsby", ko: "위대한 개츠비", level: "L5 자유 독서 확장형", ar: "7.3", lexile: "1070L", types: ["X", "E", "A"], tags: ["상징", "은유", "문학적 사고"], image: "./assets/book-the-great-gatsby.webp", desc: "화려한 문장과 상징이 많아, 단순 해석을 넘어 문학적 감각을 키우는 단계입니다. 문체와 상징을 따라가며 자유 독서의 폭을 넓히기 좋습니다." },
-  B019: { title: "The Old Man and the Sea", ko: "노인과 바다", level: "L5 자유 독서 확장형", ar: "5.1", lexile: "940L", types: ["X", "E"], tags: ["문체", "상징", "집중"], image: "./assets/book-the-old-man-and-the-sea.webp", desc: "간결한 문장 안에서 삶의 태도와 상징을 읽어내는 집중형 원서입니다. 쉬운 문장 너머의 의미를 스스로 붙잡는 단계에 어울립니다." },
-  B020: { title: "Brave New World", ko: "멋진 신세계", level: "L5 자유 독서 확장형", ar: "7.5", lexile: "870L", types: ["X", "A"], tags: ["미래사회", "비판", "철학"], image: "./assets/book-brave-new-world.webp", desc: "영어 독서를 사회와 인간에 대한 질문으로 확장하고 싶은 독자에게 적합합니다. 혼자 읽고, 해석하고, 생각을 넓히는 목표 단계입니다." },
+  B013: { title: "Pride and Prejudice", ko: "오만과 편견", level: "L4 상위권", ar: "12.0", lexile: "1190L", types: ["A", "E", "X"], tags: ["관계", "논리", "고급 구조"], image: "./assets/book-pride-and-prejudice.webp", desc: "고급 문장 구조와 미묘한 관계 표현을 함께 읽는 책입니다. 정확하게 읽고 싶은 독자에게 큰 성취감을 줍니다." },
+  B014: { title: "To Kill a Mockingbird", ko: "앵무새 죽이기", level: "L4 상위권", ar: "5.6", lexile: "790L", types: ["X", "E"], tags: ["사회", "성장", "윤리"], image: "./assets/book-to-kill-a-mockingbird.webp", desc: "언어 난이도만이 아니라 사회적 맥락과 윤리적 질문을 함께 읽어야 하는 작품입니다." },
+  B015: { title: "1984", ko: "1984", level: "L4 상위권", ar: "8.9", lexile: "1090L", types: ["X", "A"], tags: ["사회비판", "추상", "사고"], image: "./assets/book-1984.webp", desc: "문장 너머의 권력, 언어, 사회 체계를 읽는 단계에 적합합니다." },
+  B016: { title: "Of Mice and Men", ko: "생쥐와 인간", level: "L4 상위권", ar: "4.5", lexile: "630L", types: ["E", "A"], tags: ["짧은 분량", "대화", "비극"], image: "./assets/book-of-mice-and-men.webp", desc: "짧지만 감정 밀도가 높아 인물의 대화와 침묵을 깊게 읽게 합니다." },
+  B017: { title: "Sherlock Holmes", ko: "셜록 홈즈", level: "L5 혼자 읽을 수 있는 레벨", ar: "7.3", lexile: "1070L", types: ["X", "A"], tags: ["추론", "논리", "탐구"], image: "./assets/book-sherlock-holmes.webp", desc: "문장 속 단서를 따라가며 논리적으로 읽는 힘을 기릅니다. L4까지 지나온 독자라면 혼자 읽는 영어 독서의 자유를 넓혀볼 수 있습니다." },
+  B018: { title: "The Great Gatsby", ko: "위대한 개츠비", level: "L5 혼자 읽을 수 있는 레벨", ar: "7.3", lexile: "1070L", types: ["X", "E", "A"], tags: ["상징", "은유", "문학적 사고"], image: "./assets/book-the-great-gatsby.webp", desc: "화려한 문장과 상징이 많아, 단순 해석을 넘어 문학적 감각을 키우는 단계입니다. 원어민보다 더 자유롭게 문학을 해석하는 독서를 목표로 삼기 좋습니다." },
+  B019: { title: "The Old Man and the Sea", ko: "노인과 바다", level: "L5 혼자 읽을 수 있는 레벨", ar: "5.1", lexile: "940L", types: ["X", "E"], tags: ["문체", "상징", "집중"], image: "./assets/book-the-old-man-and-the-sea.webp", desc: "간결한 문장 안에서 삶의 태도와 상징을 읽어내는 집중형 원서입니다. 쉬운 문장 너머의 의미를 스스로 붙잡는 단계에 어울립니다." },
+  B020: { title: "Brave New World", ko: "멋진 신세계", level: "L5 혼자 읽을 수 있는 레벨", ar: "7.5", lexile: "870L", types: ["X", "A"], tags: ["미래사회", "비판", "철학"], image: "./assets/book-brave-new-world.webp", desc: "영어 독서를 사회와 인간에 대한 질문으로 확장하고 싶은 독자에게 적합합니다. 혼자 읽고, 해석하고, 생각을 넓히는 목표 단계입니다." },
 };
 
 const HP_SERIES = [
@@ -99,19 +85,11 @@ const TYPE_LABELS = {
   E: { label: "E 감정 공감형", short: "감정 공감형", desc: "좋은 문장과 정서적 몰입이 중요한 타입" },
   X: { label: "X 의미 탐구형", short: "의미 탐구형", desc: "배경, 상징, 질문을 깊게 파고드는 타입" },
 };
-const LEVEL_LABELS = {
-  L1: "L1 원서 입문형 독자",
-  L2: "L2 문장 감각형 독자",
-  L3: "L3 자연 독해형 독자",
-  L4: "L4 고전 정밀독해형 독자",
-  L5: "L5 자유 독서 확장형 독자",
-};
+const LEVEL_LABELS = { L1: "L1 입문 독자", L2: "L2 문장 감각형 독자", L3: "L3 자연 독해형 독자" };
 const LEVEL_EXPLANATIONS = {
-  L1: "아직 원서의 리듬을 몸에 익히기 전입니다. 짧은 분량과 익숙한 감정선으로 첫 완독 경험을 만드는 단계입니다.",
-  L2: "문장을 어느 정도 따라갈 수 있습니다. 이제 단어 하나보다 장면과 감정을 함께 읽는 균형이 중요합니다.",
-  L3: "긴 이야기를 따라갈 힘이 있습니다. 지금부터는 실력보다 지속 루틴과 책 선택이 더 중요합니다.",
-  L4: "고전의 긴 문장, 반어, 관계의 뉘앙스를 정밀하게 읽는 단계입니다. 강독과 워크북을 함께 쓰면 효과가 큽니다.",
-  L5: "더 어려운 책으로 올라가는 단계가 아니라, 혼자 원서를 고르고 장르와 문체를 넓혀가는 자유 독서 확장 단계입니다.",
+  L1: "영어를 못한다는 뜻이 아닙니다. 아직 원서의 리듬을 몸에 익히기 전이므로, 짧은 분량과 익숙한 감정선을 가진 책에서 첫 완독 경험을 만드는 단계입니다.",
+  L2: "문장을 어느 정도 따라갈 수 있습니다. 다만 단어와 구조에 오래 붙잡히면 흐름이 끊기기 쉬우므로, 장면을 먼저 잡고 필요한 문장만 천천히 보는 균형이 중요합니다.",
+  L3: "혼자 읽는 힘이 이미 있습니다. 이제부터는 어려운 책을 무리하게 고르기보다, 분량과 맥락을 견디며 깊이 있는 작품으로 확장하는 단계입니다.",
 };
 const TYPE_EXPLANATIONS = {
   S: "줄거리와 다음 장면이 살아 있어야 오래 갑니다. 먼저 흐름을 붙잡고, 단어는 나중에 정리하는 방식이 지속에 유리합니다.",
@@ -119,43 +97,7 @@ const TYPE_EXPLANATIONS = {
   E: "마음에 남는 문장이 생길 때 다시 책을 펼치는 독자입니다. 좋은 문장을 표시하고 소리 내어 읽거나 필사하는 루틴이 잘 맞습니다.",
   X: "작품의 배경과 상징, 작가의 질문이 궁금할수록 깊게 읽는 독자입니다. 읽은 내용을 내 언어로 해석하는 활동이 오래 갑니다.",
 };
-const SECONDARY_EXPLANATION = "추천 원서를 바꾸기보다, 읽는 루틴을 더 오래 유지하게 만드는 보완 장치로 활용합니다.";
-
-const SUMMARY_META = {
-  level: { icon: "📚", label: "나의 원서 읽기 레벨" },
-  type: { icon: "🧭", label: "나의 읽기 유형" },
-  secondary: { icon: "✨", label: "보조 성향" },
-  exam: { icon: "📝", label: "시험/점수 참고" },
-};
-const EXAM_REFERENCE_MAP = {
-  L1: { value: "중학교 영어 이후 재시작", desc: "기초 문장은 알지만 긴 글은 부담스러울 수 있습니다. 짧은 분량과 첫 완독 경험이 먼저입니다." },
-  L2: { value: "수능 3~4등급 / 토익 600~700점대", desc: "문장은 읽히지만 긴 글에서 멈추기 쉬운 구간입니다. 분량과 루틴을 함께 설계합니다." },
-  L3: { value: "수능 2~3등급 / 토익 700~800점대", desc: "독해 기본기는 있습니다. 취향에 맞는 책을 고르면 완독 가능성이 높아집니다." },
-  L4: { value: "수능 1~2등급 / 토익 800~900점대", desc: "정확한 독해는 가능하지만 고전의 긴 문장과 뉘앙스는 정리하며 읽어야 합니다." },
-  L5: { value: "수능 1등급대 / 토익 850점 이상", desc: "점수보다 독서 확장이 중요한 단계입니다. 장르와 문체를 넓혀 자유 독서로 연결합니다." },
-};
-const SUMMARY_LEVEL_COPY = {
-  L1: "첫 완독 경험이 먼저입니다. 쉬운 문장과 짧은 호흡으로 원서 리듬을 몸에 익히는 단계입니다.",
-  L2: "문장은 어느 정도 따라갈 수 있습니다. 이제 단어 하나보다 장면과 감정을 함께 읽는 균형이 중요합니다.",
-  L3: "긴 이야기를 읽을 힘이 있습니다. 실력보다 완독 루틴과 책 선택이 더 중요한 단계입니다.",
-  L4: "고전의 문장 구조와 관계의 뉘앙스를 정밀하게 읽는 단계입니다. 강독과 워크북을 함께 쓰면 효과가 큽니다.",
-  L5: "더 어려운 책으로 올라가는 단계가 아니라, 장르와 문체를 넓히는 자유 독서 확장 단계입니다.",
-};
-const SUMMARY_TYPE_COPY = {
-  S: "이야기가 이어질 때 오래 읽습니다. 먼저 흐름을 잡고 단어는 나중에 정리하는 방식이 맞습니다.",
-  A: "정확히 이해해야 마음이 놓이는 독자입니다. 모든 문장보다 핵심 문장 몇 개를 구조화하는 방식이 효율적입니다.",
-  E: "마음에 남는 문장이 생길 때 다시 책을 펼치는 독자입니다. 표시하고 소리 내어 읽거나 필사하는 루틴이 잘 맞습니다.",
-  X: "배경, 상징, 작가의 질문이 궁금할수록 깊게 읽습니다. 읽은 내용을 내 언어로 해석하는 활동이 오래 갑니다.",
-};
-const SUMMARY_SECONDARY_COPY = "두 번째 취향입니다. 추천 원서를 바꾸기보다 읽는 루틴을 오래 유지하게 만드는 보완 장치로 활용합니다.";
-const TOOLKIT_STEP_ICONS = ["📖", "🎧", "📝", "✍️", "🌿"];
-const MEDIUM_LABELS = { paper: "종이책 중심", pdf: "PDF/태블릿 중심", audio_lecture: "오디오·강독 동행", undecided: "매체 미정" };
-const MEDIUM_EXPLANATIONS = {
-  paper: "종이책으로 밑줄 긋고 책장을 넘기는 감각이 읽기 루틴을 만드는 데 도움이 됩니다.",
-  pdf: "PDF나 태블릿으로 문장을 표시하고 다시 찾아보는 방식이 학습 정리에 유리합니다.",
-  audio_lecture: "오디오나 강독과 함께 시작하면 혼자 막히는 구간을 줄이고 이야기 흐름을 유지하기 쉽습니다.",
-  undecided: "아직 정하지 않았다면 추천 원서와 루틴을 먼저 보고 부담이 가장 낮은 방식으로 시작하면 됩니다."
-};
+const SECONDARY_EXPLANATION = "보조 성향은 두 번째 취향입니다. 추천 원서를 바꾸기보다, 읽는 루틴을 더 오래 유지하게 만드는 보완 장치로 활용합니다.";
 const ROUTINES = {
   S: ["줄거리를 먼저 잡고 멈추지 않기", "챕터가 끝나면 장면을 3줄로 정리하기", "모르는 단어는 표시만 하고 흐름 유지하기", "오늘 가장 궁금했던 다음 장면을 한 문장으로 말하기"],
   A: ["짧은 분량을 정해 천천히 읽기", "해석이 막힌 문장 2개만 골라 구조 보기", "같은 표현이 반복되는 지점 표시하기", "오늘 배운 표현을 내 문장으로 바꿔보기"],
@@ -174,47 +116,8 @@ const MOTIVATION_REVIEWS = [
   { title: "다시 꺼내게 된 원서", text: "예전에 사두고 덮어두었던 해리포터 원서를 다시 꺼내고, 다음 강의가 궁금해지는 경험이 생겼다는 후기도 있었습니다." },
 ];
 const FREE_RESOURCES = {
-  classic: { label: "클래식 원서 강독 체험", title: "좋은 문장을 오래 곁에 두고 싶은 분에게", image: "./assets/free-classic-sample.webp", bullets: ["클래식 원서 PDF 체험판", "워크북 샘플", "클래식 영어 뉴스레터", "필사 루틴 안내"], cta: "클래식 원서 강독 체험하기", href: "https://class.literstella.co.kr/classes" },
-  harrypotter: { label: "해리포터 원서 강독 체험", title: "이미 아는 이야기로 원서 흐름을 잡고 싶은 분에게", image: "./assets/free-harrypotter-sample.webp", bullets: ["해리포터 1권 마법사의 돌 무료 원서 강독", "무료 단어장", "해리포터 뉴스레터", "2권 완독 클럽 안내"], cta: "해리포터 원서 강독 체험하기", href: "https://class.literstella.co.kr/p/new-9" },
-};
-
-
-const PRODUCT_TOOLKITS = {
-  hp_S: { title: "나의 해리포터 원서 읽기 루트", subtitle: "이야기가 이어질 때 오래 읽는 타입입니다. 무료 강독으로 흐름을 잡고, 2권 완독 클럽으로 완독 루틴을 이어갑니다.", routeLabel: "해리포터 몰입 루트", steps: [
-    { role: "무료 진입", tool: "해리포터 1권 무료 강독", copy: "이미 아는 세계관으로 원서의 흐름을 먼저 잡습니다." },
-    { role: "단어 부담 완화", tool: "해리포터 무료 단어장", copy: "모르는 단어 때문에 장면이 끊기지 않도록 준비합니다." },
-    { role: "매일 이어가기", tool: "해리포터 뉴스레터", copy: "짧은 루틴으로 세계관과 문장을 계속 이어갑니다." },
-    { role: "함께 완독", tool: "해리포터 2권 완독 클럽", copy: "1권 이후 본격적으로 함께 읽으며 완독 가능성을 높입니다." },
-    { role: "이벤트 활용", tool: "무료 워크북 증정 이벤트", copy: "2권 완독 클럽 신청 시 워크북을 함께 활용합니다." },
-  ]},
-  classic_A: { title: "나의 클래식 정밀 독해 방법", subtitle: "정확히 이해할 때 오래 가는 타입입니다. 강독과 워크북으로 기준선을 잡고, PDF와 필사노트로 문장을 내 것으로 남깁니다.", routeLabel: "클래식 분석 루트", steps: [
-    { role: "표시하며 읽기", tool: "클래식 원서 PDF", copy: "태블릿이나 PC에서 문장과 표현을 표시하며 읽습니다." },
-    { role: "막힘 해결", tool: "스토리텔링 원서 강독", copy: "혼자 붙잡기 어려운 문장 구조와 배경을 이야기처럼 풉니다." },
-    { role: "구조화", tool: "디자이너 에디션 워크북", copy: "읽은 내용을 어휘, 문장, 표현 단위로 정리합니다." },
-    { role: "체화", tool: "클래식 필사노트", copy: "핵심 문장을 손으로 옮기며 오래 기억에 남깁니다." },
-    { role: "완독 고정", tool: "야나완 챌린지", copy: "혼자 멈추기 쉬운 구간을 30~100일 루틴으로 고정합니다." },
-  ]},
-  classic_E: { title: "나의 클래식 감정 독서 방법", subtitle: "마음에 남는 문장이 생길 때 다시 책을 펼치는 타입입니다. 종이책의 물성과 필사 루틴을 중심으로 시작하는 것이 좋습니다.", routeLabel: "클래식 감정 루트", steps: [
-    { role: "읽기 시작", tool: "클래식 원서 종이책 또는 PDF", copy: "종이의 질감 또는 같은 디자인의 PDF로 부담 없이 첫 장을 펼칩니다." },
-    { role: "문장 남기기", tool: "클래식 필사노트", copy: "마음에 남는 한 문장만 골라 손으로 옮깁니다." },
-    { role: "막힘 해소", tool: "스토리텔링 원서 강독", copy: "감정선이 끊기는 문장은 강독으로 흐름을 회복합니다." },
-    { role: "가볍게 정리", tool: "디자이너 에디션 워크북", copy: "읽은 장면과 표현을 정리해 다음 독서로 이어갑니다." },
-    { role: "매일 유지", tool: "클래식 원서 뉴스레터", copy: "매일 한 문장으로 원서 감각을 이어갑니다." },
-  ]},
-  classic_S: { title: "나의 클래식 스토리 독서 방법", subtitle: "줄거리가 이어질 때 오래 읽는 타입입니다. 원서와 오디오북 MP3로 흐름을 잡고, 강독과 뉴스레터로 중간 이탈을 줄입니다.", routeLabel: "클래식 스토리 루트", steps: [
-    { role: "흐름 잡기", tool: "클래식 원서 종이책/PDF + 원어민 오디오북 MP3", copy: "눈과 귀로 함께 읽으며 장면의 흐름을 먼저 붙잡습니다." },
-    { role: "장면 이해", tool: "스토리텔링 원서 강독", copy: "줄거리가 끊기는 구간을 이야기처럼 연결합니다." },
-    { role: "핵심 정리", tool: "디자이너 에디션 워크북", copy: "모든 문장을 분석하지 않고 핵심 장면과 표현만 남깁니다." },
-    { role: "감정 저장", tool: "클래식 필사노트", copy: "마음에 남는 문장을 한 줄씩 저장합니다." },
-    { role: "완독 습관", tool: "야나완 챌린지", copy: "완독까지 일정한 리듬을 만듭니다." },
-  ]},
-  classic_X: { title: "나의 클래식 의미 탐구 방법", subtitle: "배경과 상징을 알수록 깊게 빠지는 타입입니다. 강독과 워크북으로 해석의 길잡이를 만들고, 자유 독서로 확장합니다.", routeLabel: "클래식 탐구 루트", steps: [
-    { role: "질문 잡기", tool: "추천 원서 종이책 또는 PDF", copy: "작품이 던지는 질문 하나를 정하고 읽기 시작합니다." },
-    { role: "맥락 이해", tool: "스토리텔링 원서 강독", copy: "시대 배경, 상징, 인물 관계를 함께 이해합니다." },
-    { role: "생각 정리", tool: "디자이너 에디션 워크북", copy: "읽은 내용을 질문과 해석 중심으로 정리합니다." },
-    { role: "문장 체화", tool: "클래식 필사노트", copy: "작품의 핵심 문장을 손으로 옮기며 오래 남깁니다." },
-    { role: "확장", tool: "야나완 챌린지 또는 자유 독서 루트", copy: "셜록, 개츠비, 노인과 바다처럼 장르와 문체를 넓힙니다." },
-  ]},
+  classic: { label: "클래식 원서 시작 무료 체험 자료", title: "좋은 문장을 오래 곁에 두고 싶은 분에게", image: "./assets/free-classic-sample.webp", bullets: ["클래식 원서 PDF 체험판", "워크북 샘플", "클래식 영어 뉴스레터", "필사 루틴 안내"], cta: "클래식 시작 자료 확인", href: "https://class.literstella.co.kr/classes" },
+  harrypotter: { label: "해리포터 원서 시작 무료 체험 자료", title: "이미 아는 이야기로 원서 흐름을 잡고 싶은 분에게", image: "./assets/free-harrypotter-sample.webp", bullets: ["Harry Potter and the Philosopher’s Stone 무료 강독", "무료 단어장", "해리포터 뉴스레터", "2권 완독 클럽 안내"], cta: "해리포터 시작 자료 확인", href: "https://class.literstella.co.kr/p/new-9" },
 };
 
 const state = { screenIndex: 0, goal: null, staminaAnswers: {}, levelAnswers: {}, preferenceAnswers: {}, staminaQuestionIndex: 0, levelQuestionIndex: 0, preferenceQuestionIndex: 0, result: null };
@@ -246,19 +149,8 @@ function renderLevelQuestion() {
   $("#levelPrev").textContent = state.levelQuestionIndex === 0 ? "독서 지구력으로" : "이전 문항"; $("#levelNext").textContent = state.levelQuestionIndex === LEVEL_QUESTIONS.length - 1 ? "읽기 취향으로" : "다음 문항"; $("#levelNext").disabled = !state.levelAnswers[LEVEL_QUESTIONS[state.levelQuestionIndex].id];
 }
 function renderPreferenceQuestion() {
-  const currentQuestion = PREFERENCE_QUESTIONS[state.preferenceQuestionIndex];
-  renderQuestion("#preferenceQuestionBox", PREFERENCE_QUESTIONS, state.preferenceQuestionIndex, state.preferenceAnswers, "data-preference-option", (q, id) => {
-    const option = q.options.find(item => item.id === id);
-    if (!option) return;
-    state.preferenceAnswers[q.id] = option;
-    renderPreferenceQuestion();
-    const nextButton = $("#preferenceNext");
-    if (nextButton) nextButton.disabled = false;
-    logEvent("preference_answer", { q_id: q.id, option_id: option.id, type: option.type || "", medium: option.medium || "", exam: option.exam || "" });
-  });
-  $("#preferencePrev").textContent = state.preferenceQuestionIndex === 0 ? "문장 감각으로" : "이전 문항";
-  $("#preferenceNext").textContent = state.preferenceQuestionIndex === PREFERENCE_QUESTIONS.length - 1 ? "결과 보기" : "다음 문항";
-  $("#preferenceNext").disabled = !state.preferenceAnswers[currentQuestion.id];
+  renderQuestion("#preferenceQuestionBox", PREFERENCE_QUESTIONS, state.preferenceQuestionIndex, state.preferenceAnswers, "data-preference-option", (q, id) => { const option = q.options.find(item => item.id === id); state.preferenceAnswers[q.id] = option; renderPreferenceQuestion(); logEvent("preference_answer", { q_id: q.id, type: option.type }); });
+  $("#preferencePrev").textContent = state.preferenceQuestionIndex === 0 ? "문장 감각으로" : "이전 문항"; $("#preferenceNext").textContent = state.preferenceQuestionIndex === PREFERENCE_QUESTIONS.length - 1 ? "결과 보기" : "다음 문항"; $("#preferenceNext").disabled = !state.preferenceAnswers[PREFERENCE_QUESTIONS[state.preferenceQuestionIndex].id];
 }
 function setScreen(index) {
   state.screenIndex = index; screens.forEach((id, i) => $("#" + id)?.classList.toggle("active", i === index));
@@ -273,98 +165,29 @@ function calculateResult() {
   const levelScore = Object.values(state.levelAnswers).reduce((sum, answer) => sum + (answer.score || 0), 0);
   const staminaScore = Object.values(state.staminaAnswers).reduce((sum, answer) => sum + (answer.score || 0), 0);
   const totalScore = levelScore + staminaScore;
-  let level = "L1";
-  if (totalScore >= 8.0) level = "L5";
-  else if (totalScore >= 6.8) level = "L4";
-  else if (totalScore >= 5.6) level = "L3";
-  else if (totalScore >= 3.5) level = "L2";
-
+  let level = "L1"; if (totalScore >= 6.2) level = "L3"; else if (totalScore >= 3.5) level = "L2";
   const typeScores = { S: 0, A: 0, E: 0, X: 0 };
-  Object.values(state.staminaAnswers).forEach(answer => { if (answer.type) typeScores[answer.type] += .5; });
-  Object.values(state.preferenceAnswers).forEach(answer => { if (answer.type) typeScores[answer.type] += (answer.typeWeight || 1); });
-
-  const priorityOrder = ["S", "A", "E", "X"];
-  const rankedTypes = Object.keys(typeScores).sort((a, b) => (typeScores[b] - typeScores[a]) || priorityOrder.indexOf(a) - priorityOrder.indexOf(b));
-  const type = rankedTypes[0];
-  const secondary = rankedTypes.find(k => k !== type) || "E";
+  Object.values(state.staminaAnswers).forEach(answer => { typeScores[answer.type] += .5; });
+  Object.values(state.preferenceAnswers).forEach(answer => { typeScores[answer.type] += 1; });
+  const priority = ["S", "A", "E", "X"];
+  const type = priority.sort((a, b) => (typeScores[b] - typeScores[a]) || priority.indexOf(a) - priority.indexOf(b))[0];
+  const secondary = Object.entries(typeScores).filter(([k]) => k !== type).sort((a, b) => b[1] - a[1])[0]?.[0] || "E";
   const books = recommendBooks(level, type, secondary);
-  const route = type === "S" && ["L1", "L2", "L3"].includes(level) ? "harrypotter" : "classic";
-  const mediumAnswer = state.preferenceAnswers.P06 || {};
-  const examAnswer = state.preferenceAnswers.P07 || {};
-  const result = {
-    level,
-    levelLabel: LEVEL_LABELS[level],
-    type,
-    typeLabel: TYPE_LABELS[type].label,
-    typeShort: TYPE_LABELS[type].short,
-    secondary,
-    secondaryLabel: TYPE_LABELS[secondary].label,
-    goal: state.goal,
-    score: totalScore.toFixed(1),
-    typeScores,
-    books,
-    route,
-    routine: ROUTINES[type],
-    note: TRUST_NOTES[type],
-    mediumPreference: mediumAnswer.medium || "undecided",
-    mediumLabel: MEDIUM_LABELS[mediumAnswer.medium || "undecided"],
-    examLevel: examAnswer.exam || "미정",
-    createdAt: new Date().toISOString()
-  };
-  result.toolkit = getProductToolkit(result);
-  state.result = result;
-  localStorage.setItem(STORAGE_KEYS.result, JSON.stringify(result));
-  return result;
+  const route = type === "S" && level !== "L3" ? "harrypotter" : "classic";
+  const result = { level, levelLabel: LEVEL_LABELS[level], type, typeLabel: TYPE_LABELS[type].label, typeShort: TYPE_LABELS[type].short, secondary, secondaryLabel: TYPE_LABELS[secondary].label, goal: state.goal, score: totalScore.toFixed(1), typeScores, books, route, routine: ROUTINES[type], note: TRUST_NOTES[type], createdAt: new Date().toISOString() };
+  state.result = result; localStorage.setItem(STORAGE_KEYS.result, JSON.stringify(result)); return result;
 }
 function recommendationSlotLabel(index) {
-  return ["바로 시작 추천", "혼자 읽기 대안", "다음 확장 원서"][index] || "추천 원서";
+  return index === 0 ? "리터스텔라 클래식 원서" : `추천 원서 ${index}`;
 }
 function recommendBooks(level, type, secondary) {
   const matrix = {
     L1: { S: ["B001", "B002", "B004"], A: ["B001", "B008", "B005"], E: ["B001", "B003", "B002"], X: ["B001", "B003", "B008"] },
     L2: { S: ["B005", "B008", "B012"], A: ["B005", "B008", "B006"], E: ["B005", "B003", "B008"], X: ["B005", "B007", "B010"] },
     L3: { S: ["B009", "B010", "B012"], A: ["B013", "B009", "B011"], E: ["B009", "B005", "B018"], X: ["B017", "B018", "B015"] },
-    L4: { S: ["B013", "B014", "B015"], A: ["B013", "B015", "B017"], E: ["B013", "B016", "B009"], X: ["B015", "B013", "B018"] },
-    L5: { S: ["B017", "B018", "B019"], A: ["B017", "B018", "B013"], E: ["B019", "B018", "B009"], X: ["B018", "B017", "B019"] },
   };
   const ids = matrix[level]?.[type] || matrix[level]?.[secondary] || ["B005", "B008", "B001"];
-  return ids.slice(0, 3).map((id, index) => ({ id, slotLabel: recommendationSlotLabel(index), ...BOOKS[id] }));
-}
-
-
-function getExamReference(result = {}) {
-  if (result.examLevel && result.examLevel !== "미정") return { value: result.examLevel, desc: "자기 인식값입니다. 추천은 문장 감각과 독서 지구력을 함께 반영했습니다." };
-  return EXAM_REFERENCE_MAP[result.level] || EXAM_REFERENCE_MAP.L2;
-}
-function summaryCardHtml(icon, label, value, desc) {
-  return `<div class="result-summary-card"><span class="summary-label"><span class="summary-emoji" aria-hidden="true">${icon}</span>${label}</span><strong>${value}</strong><p>${desc}</p></div>`;
-}
-function buildResultSummaryGrid(result = {}) {
-  const exam = getExamReference(result);
-  return `<div class="result-summary-grid">
-    ${summaryCardHtml(SUMMARY_META.level.icon, SUMMARY_META.level.label, result.levelLabel, SUMMARY_LEVEL_COPY[result.level] || LEVEL_EXPLANATIONS[result.level])}
-    ${summaryCardHtml(SUMMARY_META.type.icon, SUMMARY_META.type.label, result.typeLabel, SUMMARY_TYPE_COPY[result.type] || TYPE_EXPLANATIONS[result.type])}
-    ${summaryCardHtml(SUMMARY_META.secondary.icon, SUMMARY_META.secondary.label, result.secondaryLabel, SUMMARY_SECONDARY_COPY)}
-    ${summaryCardHtml(SUMMARY_META.exam.icon, SUMMARY_META.exam.label, exam.value, exam.desc)}
-  </div>`;
-}
-function getProductToolkit(result = {}) {
-  if (result.route === "harrypotter") return PRODUCT_TOOLKITS.hp_S;
-  if (result.type === "A" || result.secondary === "A") return PRODUCT_TOOLKITS.classic_A;
-  if (result.type === "S") return PRODUCT_TOOLKITS.classic_S;
-  if (result.type === "X") return PRODUCT_TOOLKITS.classic_X;
-  return PRODUCT_TOOLKITS.classic_E;
-}
-function productToolkitHtml(toolkit, result = {}) {
-  if (!toolkit) return "";
-  const mediumNote = result.mediumLabel ? `<p class="toolkit-medium-note"><strong>선호 시작 방식</strong> ${result.mediumLabel} · ${MEDIUM_EXPLANATIONS[result.mediumPreference] || ""}</p>` : "";
-  return `<section class="product-toolkit-card"><div class="toolkit-head"><span class="micro-label">🪄 나의 원서 읽기 성공 방법</span><strong>${toolkit.routeLabel}</strong></div><h3>${toolkit.title}</h3><p>${toolkit.subtitle}</p>${mediumNote}<div class="toolkit-steps">${toolkit.steps.map((step, idx) => `<article class="toolkit-step"><div class="toolkit-step-top"><span class="toolkit-step-icon" aria-hidden="true">${TOOLKIT_STEP_ICONS[idx] || "✨"}</span><span class="toolkit-step-number">${String(idx + 1).padStart(2, "0")}</span></div><div><small>${step.role}</small><strong>${step.tool}</strong><p>${step.copy}</p></div></article>`).join("")}</div></section>`;
-}
-function experienceCtaBarHtml() {
-  return `<div class="experience-cta-bar"><span class="micro-label">체험 링크</span><div class="experience-cta-actions"><a class="btn btn-primary" href="${FREE_RESOURCES.classic.href}" target="_blank" rel="noopener">클래식 원서 강독 체험하기</a><a class="btn btn-ghost" href="${FREE_RESOURCES.harrypotter.href}" target="_blank" rel="noopener">해리포터 원서 강독 체험하기</a></div></div>`;
-}
-function emailMaterialOptionsHtml() {
-  return `<div class="material-check-grid" aria-label="무료 자료 선택"><label><input type="checkbox" name="materials" value="classic" /> <span>클래식 원서 완독 자료</span></label><label><input type="checkbox" name="materials" value="harrypotter" /> <span>해리포터 원서 완독 자료</span></label></div>`;
+  return ids.map((id, index) => ({ id, slotLabel: recommendationSlotLabel(index), ...BOOKS[id] }));
 }
 
 function renderResult() {
@@ -375,17 +198,20 @@ function renderResult() {
       <span class="screen-tag">Your Reading Report</span>
       <h3>${result.levelLabel}<br />${result.typeLabel}</h3>
       <p>${TYPE_LABELS[result.type].desc}. 지금 필요한 것은 더 어려운 목표가 아니라, 다시 펼칠 수 있는 첫 책과 루틴입니다.</p>
-      ${buildResultSummaryGrid(result)}
+      <div class="result-summary-grid">
+        <div class="result-summary-card"><span>나의 원서 읽기 레벨</span><strong>${result.levelLabel}</strong><p>${LEVEL_EXPLANATIONS[result.level]}</p></div>
+        <div class="result-summary-card"><span>나의 읽기 유형</span><strong>${result.typeLabel}</strong><p>${TYPE_EXPLANATIONS[result.type]}</p></div>
+        <div class="result-summary-card"><span>보조 성향</span><strong>${result.secondaryLabel}</strong><p>${TYPE_EXPLANATIONS[result.secondary]} ${SECONDARY_EXPLANATION}</p></div>
+      </div>
     </div>
-    <h3 class="question-title">📚 추천 원서 3권</h3>
+    <h3 class="question-title">추천 원서 3권</h3>
     <div class="result-book-grid">${result.books.map(bookCardHtml).join("")}</div>
-    <div class="routine-card routine-card--visual"><span class="micro-label">🪄 나에게 맞는 읽기 루틴</span>${routineVisualHtml(result.routine)}<p>${result.note}</p></div>
-    ${productToolkitHtml(result.toolkit, result)}
-    ${experienceCtaBarHtml()}
+    <div class="routine-card routine-card--visual"><span class="micro-label">나에게 맞는 읽기 루틴</span>${routineVisualHtml(result.routine)}<p>${result.note}</p></div>
     <div class="motivation-card-wrap"><span class="micro-label">먼저 읽어본 사람들의 변화</span><div class="motivation-grid">${motivationCardsHtml().join("")}</div></div>
     <div class="report-toolbar no-print"><button class="btn btn-primary" type="button" data-open-result-report>📄 결과 리포트 PDF로 보기/저장</button><button class="btn btn-share" type="button" data-share-result>🔗 결과 공유하기</button><button class="btn btn-ghost" type="button" data-restart>↻ 다시 진단하기</button></div>
     <p class="share-message" id="shareMessage" role="status" aria-live="polite"></p>
-    <div class="email-card"><h3>이메일 전용 자료 신청</h4><p>무료 체험 링크와 별도로, 이메일 신청하신 분들께 자료를 한 번에 내려받을 수 있는 안내 메일을 드립니다. 이메일 형식을 확인한 뒤 신청이 저장됩니다.(2026.05.09.19시부터 제출 가능)</p><form class="email-form" id="emailForm">${emailMaterialOptionsHtml()}<input type="email" name="email" placeholder="이메일 주소" required /><button class="btn btn-secondary" type="submit">전용 자료 메일 신청하기</button><label class="consent-row"><input type="checkbox" name="consent" required /> 결과 리포트 및 신청 자료 안내 메일 수신에 동의합니다.</label><p class="form-message" id="formMessage" role="status"></p></form></div>`;
+    <div class="resource-cta-grid resource-cta-grid--result">${resourceCardHtml(FREE_RESOURCES.classic)}${resourceCardHtml(FREE_RESOURCES.harrypotter)}</div>
+    <div class="email-card"><h3>결과 리포트를 메일로 받아두세요.</h3><p>지금 확인한 추천 원서와 읽기 루틴을 나중에 다시 볼 수 있도록 이메일로 저장합니다.</p><form class="email-form" id="emailForm"><input type="email" name="email" placeholder="이메일 주소" required /><button class="btn btn-secondary" type="submit">결과 메일로 받기</button><label class="consent-row"><input type="checkbox" name="consent" required /> 결과 리포트 및 관련 안내 메일 수신에 동의합니다.</label><p class="form-message" id="formMessage" role="status"></p></form></div>`;
   $("[data-open-result-report]")?.addEventListener("click", () => openResultReport(result));
   $("[data-share-result]")?.addEventListener("click", () => shareResult(result));
   $("[data-restart]")?.addEventListener("click", resetSurvey);
@@ -398,15 +224,8 @@ function routineVisualHtml(items = []) {
 function motivationCardsHtml(limit = 3) {
   return MOTIVATION_REVIEWS.slice(0, limit).map(review => `<article class="motivation-card"><strong>${review.title}</strong><p>${review.text}</p></article>`);
 }
-function reportInsightCard(icon, label, value, desc) {
-  return `<div class="report-metric"><span><span class="report-metric-emoji" aria-hidden="true">${icon}</span>${label}</span><strong>${value}</strong><p>${desc}</p></div>`;
-}
-function buildReportDashboard(result = {}) {
-  const levelKey = result.level || "L2";
-  const typeKey = result.type || "S";
-  const secondaryKey = result.secondary || "E";
-  const exam = getExamReference(result);
-  return `${reportInsightCard(SUMMARY_META.level.icon, SUMMARY_META.level.label, result.levelLabel, LEVEL_EXPLANATIONS[levelKey])}${reportInsightCard(SUMMARY_META.type.icon, SUMMARY_META.type.label, result.typeLabel, TYPE_EXPLANATIONS[typeKey])}${reportInsightCard(SUMMARY_META.secondary.icon, SUMMARY_META.secondary.label, result.secondaryLabel, `${TYPE_EXPLANATIONS[secondaryKey]} ${SECONDARY_EXPLANATION}`)}${reportInsightCard(SUMMARY_META.exam.icon, SUMMARY_META.exam.label, exam.value, exam.desc)}`;
+function reportInsightCard(label, value, desc) {
+  return `<div class="report-metric"><span>${label}</span><strong>${value}</strong><p>${desc}</p></div>`;
 }
 function bookCardHtml(book) {
   return `<article class="recommended-book-card"><div class="book-slot-badge">${book.slotLabel || "추천 원서"}</div><div class="image-frame book-cover-lg book-cover-portrait"><img src="${book.image}" alt="${book.title} 표지 이미지" onerror="handleImageError(this, '${book.title} 이미지 영역')" /><div class="image-placeholder">${book.title} 이미지 영역</div></div><div class="book-card-copy"><h4>${book.title}</h4><p class="ko-title">${book.ko}</p><div class="metric-row"><span>${book.level}</span><span>AR ${book.ar}</span><span>Lexile ${book.lexile}</span></div><p>${book.desc}</p></div></article>`;
@@ -461,37 +280,9 @@ function enableContentProtection() {
 }
 
 function handleEmailSubmit(event) {
-  event.preventDefault();
-  const form = event.currentTarget;
-  const email = form.email.value.trim();
-  const msg = $("#formMessage");
-  const materials = [...form.querySelectorAll('input[name="materials"]:checked')].map(input => input.value);
-  const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  if (!emailOk) { msg.textContent = "이메일 형식을 확인해 주세요. 예: name@example.com"; return; }
-  if (!materials.length) { msg.textContent = "받고 싶은 자료를 하나 이상 선택해 주세요."; return; }
-  if (!form.consent.checked) { msg.textContent = "자료 안내를 위해 수신 동의가 필요합니다."; return; }
-  const lead = { email, materials, result: state.result, createdAt: new Date().toISOString() };
-  const leads = JSON.parse(localStorage.getItem(STORAGE_KEYS.leads) || "[]");
-  leads.push(lead);
-  localStorage.setItem(STORAGE_KEYS.leads, JSON.stringify(leads));
-
-  const payload = new URLSearchParams();
-  payload.append("form-name", "diagnosis-leads");
-  payload.append("email", email);
-  payload.append("materials", materials.join(","));
-  payload.append("goal", state.result?.goal || "");
-  payload.append("level", state.result?.level || "");
-  payload.append("type", state.result?.type || "");
-  payload.append("secondary", state.result?.secondary || "");
-  payload.append("route", state.result?.route || "");
-  payload.append("examLevel", state.result?.examLevel || "");
-  payload.append("mediumPreference", state.result?.mediumPreference || "");
-  payload.append("books", (state.result?.books || []).map(book => book.title).join(" | "));
-  payload.append("consent", "true");
-  fetch("/", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: payload.toString() }).catch(() => {});
-
-  msg.textContent = `입력한 이메일: ${email} · 신청 자료: ${materials.includes("classic") ? "클래식" : ""}${materials.length === 2 ? " / " : ""}${materials.includes("harrypotter") ? "해리포터" : ""} · 결과 요약과 신청하신 자료를 한 번에 다운로드할 수 있는 안내 메일 신청이 저장되었습니다.`;
-  logEvent("email_submit", { email, materials, level: state.result?.level, type: state.result?.type });
+  event.preventDefault(); const form = event.currentTarget; const email = form.email.value.trim(); const msg = $("#formMessage");
+  if (!email || !form.consent.checked) { msg.textContent = "이메일과 수신 동의를 확인해주세요."; return; }
+  const leads = JSON.parse(localStorage.getItem(STORAGE_KEYS.leads) || "[]"); leads.push({ email, result: state.result, createdAt: new Date().toISOString() }); localStorage.setItem(STORAGE_KEYS.leads, JSON.stringify(leads)); msg.textContent = "저장되었습니다. 결과 리포트를 다시 확인할 수 있도록 준비해두겠습니다."; form.reset(); logEvent("email_submit", { email, level: state.result?.level, type: state.result?.type });
 }
 
 function resetSurvey() {
@@ -507,8 +298,8 @@ function renderBookMaps() {
     { key: "L1", title: "L1 입문 — 처음 끝까지 읽기", desc: "부담보다 완독 경험을 먼저 만드는 단계", filter: b => b.level.startsWith("L1") },
     { key: "L2", title: "L2 문장 이해 — 문장과 감정의 균형", desc: "문장 구조와 이야기 흐름을 함께 잡는 단계", filter: b => b.level.startsWith("L2") },
     { key: "L3", title: "L3 자연 독해 — 읽는 상태 유지", desc: "분량과 맥락을 견디는 힘을 키우는 단계", filter: b => b.level.startsWith("L3") },
-    { key: "L4", title: "L4 고전 정밀독해형 — 고급 구조와 뉘앙스", desc: "사회적 맥락, 반어, 복문 구조를 정밀하게 읽는 단계", filter: b => b.level.startsWith("L4") },
-    { key: "L5", title: "L5 자유 독서 확장형 — 장르와 문체를 넓히는 단계", desc: "더 어려운 책으로 올라가는 단계가 아니라, 셜록·개츠비·노인과 바다처럼 혼자 원서를 고르고 해석의 폭을 넓히는 단계입니다.", filter: b => b.level.startsWith("L5") },
+    { key: "L4", title: "L4 상위권 — 고급 구조와 표현", desc: "사회적 맥락과 복문 구조를 읽는 단계", filter: b => b.level.startsWith("L4") },
+    { key: "L5", title: "L5 혼자 읽을 수 있는 레벨 — 축하합니다!", desc: "원어민보다 더 자유로운 영어 독서를 즐겨보세요. Harry Potter and the Philosopher’s Stone이 AR 5.5, 미국 초등 5~6학년권 텍스트라면, 이 단계는 고전과 현대문학을 스스로 해석하는 목표 지점입니다.", filter: b => b.level.startsWith("L5") },
   ];
   levelMount.innerHTML = levelGroups.map(group => `<section class="book-level-group"><div class="book-level-title"><div><h3>${group.title}</h3><p>${group.desc}</p></div></div><div class="book-grid">${books.filter(group.filter).map(mapCardHtml).join("")}</div></section>`).join("");
   const typeGroups = ["S", "A", "E", "X"];
@@ -537,12 +328,7 @@ function openSampleReport() {
       { ...BOOKS.B012, id: "B012", slotLabel: "추천 원서 2" }
     ],
     routine: ["흐름 먼저 읽기", "마음에 남는 문장 표시", "소리 내어 읽기", "오늘 장면을 한 문장으로 말하기"],
-    note: "다시 시작하고 싶은 독자에게 필요한 것은 더 쉬운 책만이 아닙니다. 너무 유치하지 않으면서도, 마음이 먼저 따라갈 수 있는 첫 책이 필요합니다.",
-    route: "classic",
-    mediumPreference: "paper",
-    mediumLabel: MEDIUM_LABELS.paper,
-    examLevel: "수능 3~4등급 / 토익 600~700점대",
-    toolkit: PRODUCT_TOOLKITS.classic_E
+    note: "다시 시작하고 싶은 독자에게 필요한 것은 더 쉬운 책만이 아닙니다. 너무 유치하지 않으면서도, 마음이 먼저 따라갈 수 있는 첫 책이 필요합니다."
   };
   renderReportPreview(sample, { sample: true });
 }
@@ -551,81 +337,22 @@ function renderReportPreview(result, { sample }) {
   const section = $("#reportPreviewSection"); const mount = $("#reportPreviewMount"); if (!section || !mount) return;
   $("#reportPreviewTitle").textContent = sample ? "샘플 결과 PDF 미리보기" : "나의 결과 리포트 PDF 미리보기";
   mount.innerHTML = reportPageHtml(result, { sample });
-  fitReportPreview(mount.querySelector(".report-page"));
   section.classList.remove("hidden");
   section.scrollIntoView({ behavior: "smooth", block: "start" });
   logEvent(sample ? "sample_report_preview" : "result_report_preview", { sample });
 }
-function shortText(text = "", max = 90) {
-  if (!text) return "";
-  return text.length > max ? `${text.slice(0, max).trim()}…` : text;
-}
-
 function reportPageHtml(result, { sample }) {
   const books = result.books || [];
-  const toolkit = result.toolkit || getProductToolkit(result);
-  const compactNote = shortText(result.note || "원서는 완벽하게 해석하는 일이 아니라, 다시 펼칠 수 있는 방식으로 오래 만나는 일입니다.", 102);
-  return `<main class="report-page report-page--single" id="printableReport"><header class="report-page-header"><div><p class="report-label">${sample ? "Sample Result Report" : "Personal Reading Report"}</p><h1>${sample ? "샘플 결과 리포트" : "나의 원서 읽기 결과 리포트"}</h1><p>${sample ? "비슷한 독자는 이런 결과를 받게 됩니다." : "지금 읽을 수 있는 문장 감각과 오래 갈 수 있는 읽기 방법을 한 장으로 정리했습니다."}</p></div><div class="report-page-logo">LiterStella<br><span>${new Date().toLocaleDateString("ko-KR")}</span></div></header><section class="report-dashboard">${buildReportDashboard(result)}</section><section class="report-main-grid"><div class="report-panel report-books-panel"><h2>📚 추천 원서 3권</h2><div class="report-book-row">${books.map(reportBookHtml).join("")}</div></div><div class="report-right-stack"><aside class="report-panel report-side-panel"><h2>✨ 추천 읽기 방법</h2>${routineVisualHtml(result.routine || [])}<p class="report-note">${compactNote}</p></aside>${reportToolkitHtml(toolkit)}</div></section>${reportProofHtml()}<section class="report-resource-row report-resource-row--compact">${reportResourceHtml(FREE_RESOURCES.classic)}${reportResourceHtml(FREE_RESOURCES.harrypotter)}</section></main>`;
+  const levelKey = result.level || "L2";
+  const typeKey = result.type || "S";
+  const secondaryKey = result.secondary || "E";
+  return `<main class="report-page" id="printableReport"><header class="report-page-header"><div><p class="report-label">${sample ? "Sample Result Report" : "Personal Reading Report"}</p><h1>${sample ? "샘플 결과 리포트" : "나의 원서 읽기 결과 리포트"}</h1><p>${sample ? "당신과 비슷한 독자는 이런 결과를 받게 됩니다." : "지금 읽을 수 있는 문장 감각과 오래 갈 수 있는 읽기 방식을 한 장으로 정리했습니다."}</p></div><div class="report-page-logo">LiterStella<br><span>${new Date().toLocaleDateString("ko-KR")}</span></div></header><section class="report-dashboard">${reportInsightCard("원서 읽기 레벨", result.levelLabel, LEVEL_EXPLANATIONS[levelKey])}${reportInsightCard("읽기 유형", result.typeLabel, TYPE_EXPLANATIONS[typeKey])}${reportInsightCard("보조 성향", result.secondaryLabel, TYPE_EXPLANATIONS[secondaryKey])}</section><section class="report-main-grid"><div class="report-panel"><h2>추천 원서 3권</h2><div class="report-book-row">${books.map(reportBookHtml).join("")}</div></div><aside class="report-panel report-side-panel"><h2>추천 루틴</h2>${routineVisualHtml(result.routine || [])}<p class="report-note">${result.note || "원서는 완벽하게 해석하는 일이 아니라, 다시 펼칠 수 있는 방식으로 오래 만나는 일입니다."}</p><div class="report-review-box"><strong>후기에서 반복된 변화</strong>${motivationCardsHtml(2).map(card => card).join("")}</div></aside></section><section class="report-resource-row">${reportResourceHtml(FREE_RESOURCES.classic)}${reportResourceHtml(FREE_RESOURCES.harrypotter)}</section></main>`;
 }
-
-function reportProofHtml() {
-  const reviews = MOTIVATION_REVIEWS.slice(0, 2);
-  return `<section class="report-panel report-proof-panel"><h2>💬 후기에서 찾은 변화</h2><div class="report-proof-grid">${reviews.map(review => `<article><strong>${review.title}</strong><p>${shortText(review.text, 52)}</p></article>`).join("")}</div></section>`;
-}
-
-function getReportToolkitBadge(toolkit, idx) {
-  const hp = (toolkit?.routeLabel || "").includes("해리포터");
-  const emojiSets = hp ? ["🪄","📝","💌","🏰","🎁"] : ["📘","✍️","🎧","🗂️","🌿"];
-  const roleSets = hp ? ["시작","준비","이어가기","확장","혜택"] : ["시작","남기기","이해","정리","지속"];
-  return { emoji: emojiSets[idx] || "✨", role: roleSets[idx] || "단계" };
-}
-
-function reportToolkitHtml(toolkit) {
-  if (!toolkit) return "";
-  return `<section class="report-panel report-toolkit-panel"><div class="report-toolkit-head"><h2>🪄 나의 원서 읽기 성공 방법</h2><span class="report-toolkit-route">${toolkit.routeLabel}</span></div><p>${shortText(toolkit.subtitle, 72)}</p><div class="report-toolkit-grid report-toolkit-grid--feature">${toolkit.steps.map((step, idx) => { const badge = getReportToolkitBadge(toolkit, idx); return `<article class="report-toolkit-card"><div class="report-toolkit-card-top"><span class="report-toolkit-emoji" aria-hidden="true">${badge.emoji}</span><span class="report-toolkit-stepno">${String(idx + 1).padStart(2, "0")}</span></div><small>${badge.role}</small><strong>${step.tool}</strong><p>${shortText(step.copy, 30)}</p></article>`; }).join("")}</div></section>`;
-}
-
 function reportBookHtml(book) {
-  return `<article class="report-book"><div class="report-book-ribbon">${book.slotLabel || "추천 원서"}</div><div class="report-book-thumb"><img src="${book.image}" alt="${book.title} 표지" onerror="this.closest('.report-book-thumb').classList.add('is-placeholder')" /></div><div class="report-book-body"><h3>${book.title}</h3><p class="ko-title">${book.ko} · ${book.level} · AR ${book.ar} · Lexile ${book.lexile}</p><p>${shortText(book.desc, 96)}</p></div></article>`;
+  return `<article class="report-book"><div class="report-book-ribbon">${book.slotLabel || "추천 원서"}</div><div class="report-book-thumb"><img src="${book.image}" alt="${book.title} 표지" onerror="this.closest('.report-book-thumb').classList.add('is-placeholder')" /></div><div><h3>${book.title}</h3><p class="ko-title">${book.ko} · ${book.level} · AR ${book.ar} · Lexile ${book.lexile}</p><p>${book.desc}</p></div></article>`;
 }
-function reportResourceHtml(resource) {
-  const isHp = resource.href.includes("new-9");
-  const label = isHp ? "해리포터 원서 강독 체험" : "클래식 원서 강독 체험";
-  const cta = isHp ? "해리포터 원서 강독 체험하기" : "클래식 원서 강독 체험하기";
-  const desc = isHp ? "이미 아는 이야기로 원서 흐름을 잡고 싶은 분에게" : "좋은 문장을 오래 곁에 두고 싶은 분에게";
-  return `<article class="report-resource-card"><h3>${label}</h3><p>${desc}</p><a class="report-resource-button" href="${resource.href}" target="_blank" rel="noopener">${cta}</a></article>`;
-}
-function fitReportPreview(reportEl) {
-  if (!reportEl) return;
-  reportEl.classList.remove("report-page--scaled");
-  reportEl.style.removeProperty("--report-scale");
-  const maxHeight = reportEl.clientHeight || 1120;
-  const innerHeight = reportEl.scrollHeight;
-  if (innerHeight > maxHeight) {
-    const scale = Math.max(0.84, Math.min(1, maxHeight / innerHeight));
-    reportEl.style.setProperty("--report-scale", scale.toFixed(3));
-    reportEl.classList.add("report-page--scaled");
-  }
-}
-
-function fitReportForPrint(reportEl) {
-  if (!reportEl) return;
-  reportEl.style.transformOrigin = "top left";
-  if (reportEl.classList.contains("report-page--scaled")) {
-    // 미리보기와 인쇄 결과를 동일하게 유지하기 위해 미리보기에서 계산된 scale을 그대로 사용합니다.
-    return;
-  }
-  reportEl.style.transform = "none";
-  const target = reportEl.clientHeight || 1122;
-  const content = reportEl.scrollHeight;
-  if (content > target) {
-    const scale = Math.max(0.82, Math.min(1, target / content));
-    reportEl.style.transform = `scale(${scale})`;
-  }
-}
-
+function reportResourceHtml(resource) { return `<article class="report-resource-card"><h3>${resource.label}</h3><p>${resource.title}</p><a class="report-resource-button" href="${resource.href}" target="_blank" rel="noopener">${resource.cta}</a></article>`; }
 function clearPrintRoot() {
-
   document.body.classList.remove("print-report-only");
   document.querySelector("#printRoot")?.remove();
 }
@@ -650,7 +377,6 @@ function printCurrentReport() {
 
   document.body.appendChild(printRoot);
   document.body.classList.add("print-report-only");
-  fitReportForPrint(reportClone);
 
   window.requestAnimationFrame(() => {
     setTimeout(() => window.print(), 80);
@@ -664,22 +390,34 @@ function closeReportPreview() {
   clearPrintRoot();
 }
 
-function setupGlobalClickHandlers() {
-  document.addEventListener("click", event => {
-    const sampleTrigger = event.target.closest("[data-open-sample-report]");
-    if (sampleTrigger) {
-      event.preventDefault();
-      openSampleReport();
-      return;
-    }
+
+function initMobileMenuPatch() {
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const menu = document.querySelector('#mobileNav');
+  if (!toggle || !menu) return;
+  const closeMenu = () => {
+    toggle.classList.remove('is-open');
+    menu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+  toggle.addEventListener('click', () => {
+    const open = !menu.classList.contains('is-open');
+    toggle.classList.toggle('is-open', open);
+    menu.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  menu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
   });
 }
 
 function init() {
   enableContentProtection();
+  initMobileMenuPatch();
   renderGoalChoices(); renderStaminaQuestion(); renderLevelQuestion(); renderPreferenceQuestion(); renderResources(); renderBookMaps(); renderHarryPotterSeries(); setScreen(0);
-  setupGlobalClickHandlers();
   $all("[data-start-survey]").forEach(btn => btn.addEventListener("click", () => { setScreen(0); $("#diagnosis")?.scrollIntoView({ behavior: "smooth", block: "start" }); logEvent("survey_start_click"); }));
+  $all("[data-open-sample-report]").forEach(btn => btn.addEventListener("click", openSampleReport));
   $all("[data-next]").forEach(btn => btn.addEventListener("click", () => { if (state.screenIndex === 4) { renderResult(); setScreen(5); } else goNext(); }));
   $all("[data-prev]").forEach(btn => btn.addEventListener("click", goPrev));
   $("#staminaPrev")?.addEventListener("click", () => { if (state.staminaQuestionIndex === 0) setScreen(1); else { state.staminaQuestionIndex -= 1; renderStaminaQuestion(); } });
@@ -687,20 +425,7 @@ function init() {
   $("#levelPrev")?.addEventListener("click", () => { if (state.levelQuestionIndex === 0) setScreen(2); else { state.levelQuestionIndex -= 1; renderLevelQuestion(); } });
   $("#levelNext")?.addEventListener("click", () => { if (state.levelQuestionIndex < LEVEL_QUESTIONS.length - 1) { state.levelQuestionIndex += 1; renderLevelQuestion(); } else setScreen(4); });
   $("#preferencePrev")?.addEventListener("click", () => { if (state.preferenceQuestionIndex === 0) setScreen(3); else { state.preferenceQuestionIndex -= 1; renderPreferenceQuestion(); } });
-  $("#preferenceNext")?.addEventListener("click", () => {
-    const currentQuestion = PREFERENCE_QUESTIONS[state.preferenceQuestionIndex];
-    if (!state.preferenceAnswers[currentQuestion.id]) {
-      renderPreferenceQuestion();
-      return;
-    }
-    if (state.preferenceQuestionIndex < PREFERENCE_QUESTIONS.length - 1) {
-      state.preferenceQuestionIndex += 1;
-      renderPreferenceQuestion();
-    } else {
-      renderResult();
-      setScreen(5);
-    }
-  });
+  $("#preferenceNext")?.addEventListener("click", () => { if (state.preferenceQuestionIndex < PREFERENCE_QUESTIONS.length - 1) { state.preferenceQuestionIndex += 1; renderPreferenceQuestion(); } else { renderResult(); setScreen(5); } });
   $("[data-print-report]")?.addEventListener("click", printCurrentReport);
   $("[data-close-report]")?.addEventListener("click", closeReportPreview);
 }
