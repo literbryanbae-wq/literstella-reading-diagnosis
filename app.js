@@ -208,12 +208,11 @@ function renderResult() {
     <div class="result-book-grid">${result.books.map(bookCardHtml).join("")}</div>
     <div class="routine-card routine-card--visual"><span class="micro-label">나에게 맞는 읽기 루틴</span>${routineVisualHtml(result.routine)}<p>${result.note}</p></div>
     <div class="motivation-card-wrap"><span class="micro-label">먼저 읽어본 사람들의 변화</span><div class="motivation-grid">${motivationCardsHtml().join("")}</div></div>
-    <div class="report-toolbar no-print"><button class="btn btn-primary" type="button" data-open-result-report>📄 결과 리포트 PDF로 보기/저장</button><button class="btn btn-primary mobile-download-report" type="button" data-download-result-report>📄 결과 리포트 PDF 다운로드</button><button class="btn btn-share" type="button" data-share-result>🔗 결과 공유하기</button><button class="btn btn-ghost" type="button" data-restart>↻ 다시 진단하기</button></div>
+    <div class="report-toolbar no-print"><button class="btn btn-primary" type="button" data-open-result-report>📄 결과 리포트 PDF로 보기/저장</button><button class="btn btn-share" type="button" data-share-result>🔗 결과 공유하기</button><button class="btn btn-ghost" type="button" data-restart>↻ 다시 진단하기</button></div>
     <p class="share-message" id="shareMessage" role="status" aria-live="polite"></p>
     <div class="resource-cta-grid resource-cta-grid--result">${resourceCardHtml(FREE_RESOURCES.classic)}${resourceCardHtml(FREE_RESOURCES.harrypotter)}</div>
     <div class="email-card"><h3>결과 리포트를 메일로 받아두세요.</h3><p>지금 확인한 추천 원서와 읽기 루틴을 나중에 다시 볼 수 있도록 이메일로 저장합니다.</p><form class="email-form" id="emailForm"><input type="email" name="email" placeholder="이메일 주소" required /><button class="btn btn-secondary" type="submit">결과 메일로 받기</button><label class="consent-row"><input type="checkbox" name="consent" required /> 결과 리포트 및 관련 안내 메일 수신에 동의합니다.</label><p class="form-message" id="formMessage" role="status"></p></form></div>`;
   $("[data-open-result-report]")?.addEventListener("click", () => openResultReport(result));
-  $("[data-download-result-report]")?.addEventListener("click", async () => { openResultReport(result); await new Promise(resolve => setTimeout(resolve, 250)); downloadCurrentReport(); });
   $("[data-share-result]")?.addEventListener("click", () => shareResult(result));
   $("[data-restart]")?.addEventListener("click", resetSurvey);
   $("#emailForm")?.addEventListener("submit", handleEmailSubmit);
@@ -353,34 +352,6 @@ function reportBookHtml(book) {
   return `<article class="report-book"><div class="report-book-ribbon">${book.slotLabel || "추천 원서"}</div><div class="report-book-thumb"><img src="${book.image}" alt="${book.title} 표지" onerror="this.closest('.report-book-thumb').classList.add('is-placeholder')" /></div><div><h3>${book.title}</h3><p class="ko-title">${book.ko} · ${book.level} · AR ${book.ar} · Lexile ${book.lexile}</p><p>${book.desc}</p></div></article>`;
 }
 function reportResourceHtml(resource) { return `<article class="report-resource-card"><h3>${resource.label}</h3><p>${resource.title}</p><a class="report-resource-button" href="${resource.href}" target="_blank" rel="noopener">${resource.cta}</a></article>`; }
-async function downloadCurrentReport() {
-  const report = document.querySelector("#reportPreviewMount .report-page") || document.querySelector("#printableReport");
-  if (!report) return;
-  if (!window.html2canvas || !window.jspdf?.jsPDF) {
-    alert("PDF 다운로드 모듈을 불러오는 중입니다. 잠시 후 다시 눌러주세요.");
-    return;
-  }
-  try {
-    const canvas = await window.html2canvas(report, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: "#ffffff",
-      scrollX: 0,
-      scrollY: 0
-    });
-    const imgData = canvas.toDataURL("image/jpeg", 0.95);
-    const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF("p", "mm", "a4");
-    const pageWidth = 210;
-    const pageHeight = 297;
-    pdf.addImage(imgData, "JPEG", 0, 0, pageWidth, pageHeight);
-    pdf.save("literstella-reading-report.pdf");
-    logEvent("report_pdf_download", { mobile: window.matchMedia("(max-width: 720px)").matches });
-  } catch (error) {
-    alert("PDF 다운로드 중 문제가 발생했습니다. 잠시 후 다시 시도해주세요.");
-  }
-}
-
 function clearPrintRoot() {
   document.body.classList.remove("print-report-only");
   document.querySelector("#printRoot")?.remove();
@@ -419,8 +390,31 @@ function closeReportPreview() {
   clearPrintRoot();
 }
 
+
+function initMobileMenuPatch() {
+  const toggle = document.querySelector('.mobile-menu-toggle');
+  const menu = document.querySelector('#mobileNav');
+  if (!toggle || !menu) return;
+  const closeMenu = () => {
+    toggle.classList.remove('is-open');
+    menu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+  };
+  toggle.addEventListener('click', () => {
+    const open = !menu.classList.contains('is-open');
+    toggle.classList.toggle('is-open', open);
+    menu.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  menu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeMenu();
+  });
+}
+
 function init() {
   enableContentProtection();
+  initMobileMenuPatch();
   renderGoalChoices(); renderStaminaQuestion(); renderLevelQuestion(); renderPreferenceQuestion(); renderResources(); renderBookMaps(); renderHarryPotterSeries(); setScreen(0);
   $all("[data-start-survey]").forEach(btn => btn.addEventListener("click", () => { setScreen(0); $("#diagnosis")?.scrollIntoView({ behavior: "smooth", block: "start" }); logEvent("survey_start_click"); }));
   $all("[data-open-sample-report]").forEach(btn => btn.addEventListener("click", openSampleReport));
@@ -433,7 +427,6 @@ function init() {
   $("#preferencePrev")?.addEventListener("click", () => { if (state.preferenceQuestionIndex === 0) setScreen(3); else { state.preferenceQuestionIndex -= 1; renderPreferenceQuestion(); } });
   $("#preferenceNext")?.addEventListener("click", () => { if (state.preferenceQuestionIndex < PREFERENCE_QUESTIONS.length - 1) { state.preferenceQuestionIndex += 1; renderPreferenceQuestion(); } else { renderResult(); setScreen(5); } });
   $("[data-print-report]")?.addEventListener("click", printCurrentReport);
-  $("[data-download-report]")?.addEventListener("click", downloadCurrentReport);
   $("[data-close-report]")?.addEventListener("click", closeReportPreview);
 }
 

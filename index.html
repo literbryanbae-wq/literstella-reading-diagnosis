@@ -29,9 +29,24 @@
         <a href="#routes">읽기 루트</a>
         <a href="#book-map">원서 지도</a>
         <a href="#harry-potter-series">해리포터 시리즈</a>
+        <a class="nav-wadiz" href="https://app.wadiz.kr/links/7Y-5t4veuy" target="_blank" rel="noopener">와디즈 슈퍼패키지 펀딩 <b>1주</b></a>
       </nav>
+      <button class="mobile-menu-toggle" type="button" aria-label="모바일 메뉴 열기" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+    <nav id="mobileNav" class="mobile-nav" aria-label="모바일 주요 이동">
+      <a href="#diagnosis">진단 시작</a>
+      <a href="#routes">읽기 루트</a>
+      <a href="#book-map">원서 지도</a>
+      <a href="#harry-potter-series">해리포터 시리즈</a>
+      <a class="mobile-nav-wadiz" href="https://app.wadiz.kr/links/7Y-5t4veuy" target="_blank" rel="noopener">와디즈 슈퍼패키지 펀딩 1주</a>
+    </nav>
   </header>
+
+  <a class="wadiz-floating-cta no-print" href="https://app.wadiz.kr/links/7Y-5t4veuy" target="_blank" rel="noopener" aria-label="와디즈 슈퍼패키지 펀딩 1주 바로가기">
+    <span>펀딩 1주</span>
+  </a>
 
   <main id="main">
     <section id="intro" class="hero section-pad">
@@ -209,7 +224,6 @@
           </div>
           <div class="report-preview-actions">
             <button class="btn btn-primary" type="button" data-print-report>PDF 저장 / 인쇄하기</button>
-            <button class="btn btn-primary mobile-download-report" type="button" data-download-report>결과 리포트 PDF 다운로드</button>
             <button class="btn btn-ghost" type="button" data-close-report>미리보기 닫기</button>
           </div>
         </div>
@@ -293,8 +307,6 @@
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
-  <script src="./app.js" defer></script>
+  <script src="./app.js"></script>
 </body>
 </html>
